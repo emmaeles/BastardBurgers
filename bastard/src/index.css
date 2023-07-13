@@ -1,29 +1,38 @@
 body {
- 
+  background-color: black;
+  color: white;
+
 }
 
-code {
-  
-}
-.head{
-  background-color: black;
+code {}
+
+.head {
+  /* background-color: black; */
   padding: 50px;
 }
+
+.menu {
+  margin: 0;
+}
+
+
+
 @font-face {
   font-family: caprasimo;
   src: url(../public/Caprasimo-Regular.ttf);
 }
-.caprasimo{
+
+.caprasimo {
   font-family: caprasimo;
-  color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
   text-align: center;
-  
+
 }
-.sidebar{
+
+.sidebar {
   position: fixed;
   top: 0;
   right: 0;
@@ -31,10 +40,14 @@ code {
   width: 260px;
   background-color: black;
 }
-.img{
+
+.logo {
   margin-top: 25px;
   width: 230px;
-  height:130px;
+  height: 130px;
 }
 
-
+.bigMenuImages {
+  width: 230px;
+  cursor: pointer;
+}
