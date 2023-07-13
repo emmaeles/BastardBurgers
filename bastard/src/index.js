@@ -8,10 +8,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import './index.css'
 
+import bastardburgers from './images/Bastardburgers.jpg'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    
+
       <div>
         <App/>
       </div>
