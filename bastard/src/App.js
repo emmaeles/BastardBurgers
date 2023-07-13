@@ -29,41 +29,43 @@ function getProduct(id) {
 }
 
 function ProductItem(props) {
-  const addProduct = getProduct(props.id)
+  const keys = Object.keys(addProduct);
+  const addProduct1 = getProduct(keys)
 
   return (
     <div className='d-flex justify-content-between'>
-      {props.productClass.name} +{props.productClass.price}
+      {console.log(keys)}
+      {/* {addProduct1.name} +{addProduct1.price} */}
       <button type="button" class="btn btn-dark btn-add justify-content-between">+</button>      
-    </div>
+    </div> 
     
   )
 
 }
 
-function getProduct(id) {
-  return addProduct.get(id)
-}
+// function getSides(id) {
+//   return sides.get(id)
+// }
 
-function ProductItem(props) {
+// function SidesItem(props) {
+//   const keys = Object.keys(sides);
+//   const sides = getSides(keys)
 
-  const addProduct = getProduct(props.id)
-
-  return (
-    <div className='d-flex justify-content-between'>
-      {props.productClass.name} +{props.productClass.price}
-      <button type="button" class="btn btn-dark btn-add justify-content-between">+</button>      
-    </div>
+//   return (
+//     <div className='d-flex justify-content-between'>
+//       {sides.name} +{sides.price}
+//       <button type="button" class="btn btn-dark btn-add justify-content-between">+</button>      
+//     </div>
     
-  )
-}
+//   )
+// }
 
 function App() {
 
   const [cart, setCart] = useState([
-    { id: "p1", amount: 0, productClass: addProduct },
-    { id: "p2", amount: 0, productClass: addProduct },
-    { id: "p3", amount: 0, productClass: addProduct}, 
+    { id: "p1", amount: 0},
+    { id: "p2", amount: 0},
+    { id: "p3", amount: 0}, 
     // { id: "s1", amount: 0 },
     // { id: "s2", amount: 0 },
     // { id: "s3", amount: 0 },
@@ -96,12 +98,12 @@ function App() {
         <div className="col">
           <img src={imageBurger} className="bigMenuImages" />
           <h2>Add</h2>
-          {cart.map(item => <ProductItem key={item.id} id={item.id} amount={item.amount} productClass= {item.productClass}/>)}
+           {<ProductItem/>}
         </div>
         <div className="col">
           <img src={imageSide} className="bigMenuImages" />
           <h2>Choose your Side</h2>
-          {cart.map(item => <ProductItem key={item.id} id={item.id} amount={item.amount}/>)}
+          {/* {<SidesItem />} */}
         </div>
         <div className="col">
           <img src={imageDrink} className="bigMenuImages" />
