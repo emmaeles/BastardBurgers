@@ -52,3 +52,12 @@ code {}
   width: 95%;
   cursor: pointer;
   
+}
+
+.btn-add{
+  border: 1px solid greenyellow;
+  border-radius: 50%;
+  background-color: black;
+  display: flex;
+  justify-content: flex-end;
+}
