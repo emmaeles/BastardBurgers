@@ -45,24 +45,18 @@ function getProduct(id) {
 }
 
 function ProductItem({ id }) {
+  const [products, setProducts] = useState(addProduct);
+
   const product = getProduct(id);
 
   const adjustProduct = (change) => {
     product.amount += change
-
+    const updatedProduct = { ...product, amount: product.amount + change };
+    const updatedProducts = new Map(products);
+    updatedProducts.set(id, updatedProduct);
+    setProducts(updatedProducts);
     console.log(product.name, product.amount)
     
-    
-
-    // const newState = product.map(obj => {
-    //   if (obj.name === id) {
-    //     return { ...obj, amount: obj.amount + change }
-    //   }
-    //   return obj
-    // })
-
-    // setCart(newState)
-
   }
 
   // const totalAmount = () => {
