@@ -20,20 +20,20 @@ import sevenUP from './images/7UPFree.png'
 import { useState } from 'react'
 
 const addProduct = new Map([
-  ['p1', { name: 'Cheese', price: 15, image: cheese }],
-  ['p2', { name: 'Meat Patty', price: 45, image: meatPatty }],
-  ['p3', { name: 'Bacon', price: 20, image: bacon }],
-  ['p4', { name: 'Jalapeños', price: 10, image: jalapenos }]
+  ['p1', { name: 'Cheese', price: 15, image: cheese, amount: 0 }],
+  ['p2', { name: 'Meat Patty', price: 45, image: meatPatty, amount: 0 }],
+  ['p3', { name: 'Bacon', price: 20, image: bacon, amount: 0  }],
+  ['p4', { name: 'Jalapeños', price: 10, image: jalapenos, amount: 0  }]
 ])
 const sides = new Map([
-  ['s1', { name: 'Shack Fries', price: 0, image: shackFries }],
-  ['s2', { name: 'Sweet Potato Fries', price: 10, image: sweetPotato }],
-  ['s3', { name: 'Animal Style Fries', price: 39, image: animalStyle }]
+  ['s1', { name: 'Shack Fries', price: 0, image: shackFries, amount: 0  }],
+  ['s2', { name: 'Sweet Potato Fries', price: 10, image: sweetPotato, amount: 0  }],
+  ['s3', { name: 'Animal Style Fries', price: 39, image: animalStyle, amount: 0  }]
 ])
 const drinks = new Map([
-  ['d1', { name: 'Pepsi', price: 0, image: pepsi }],
-  ['d2', { name: 'Pepsi Max', price: 0, image: pepsiMax }],
-  ['d3', { name: '7up Free', price: 0, image: sevenUP }]
+  ['d1', { name: 'Pepsi', price: 0, image: pepsi, amount: 0  }],
+  ['d2', { name: 'Pepsi Max', price: 0, image: pepsiMax, amount: 0  }],
+  ['d3', { name: '7up Free', price: 0, image: sevenUP, amount: 0  }]
 ]);
 
 const list = [addProduct, sides, drinks]
@@ -47,6 +47,33 @@ function getProduct(id) {
 function ProductItem({ id }) {
   const product = getProduct(id);
 
+  const adjustProduct = (change) => {
+    product.amount += change
+
+    console.log(product.name, product.amount)
+    
+    
+
+    // const newState = product.map(obj => {
+    //   if (obj.name === id) {
+    //     return { ...obj, amount: obj.amount + change }
+    //   }
+    //   return obj
+    // })
+
+    // setCart(newState)
+
+  }
+
+  // const totalAmount = () => {
+
+  //   const price = cart.map(a => {
+  //     return a.amount * (getProduct(a.id).price)
+  //   })
+
+  //   return price.reduce((a, b) => { return a + b })
+  // }
+
   return (
     <div className='d-flex justify-content-between border-bottom border-secondary'>
       <div>
@@ -56,9 +83,9 @@ function ProductItem({ id }) {
       <div>
         +{product.price}
         <div className="col-3 d-flex justify-content-between">
-        <button type="button" className="btn btn-dark btn-add text-center">+</button>
-        <div className="px-2 align-self-center">antal</div>
-        <button type="button" className="btn btn-dark btn-add text-center">-</button>
+          <button disabled={product.amount === 0} onClick={() => adjustProduct(-1)} type="button" className="btn btn-dark btn-add text-center">-</button>
+          <div className="px-2 align-self-center">{product.amount}</div>
+          <button onClick={() => adjustProduct(1)} type="button" className="btn btn-dark btn-add text-center">+</button>
         </div>
       </div>
     </div>
@@ -82,9 +109,9 @@ function SidesItem({ id }) {
         +{side.price}
         {/* <button type="button" className="btn btn-dark btn-add justify-content-between">+</button> */}
 
-        <div className="form-check"> 
-        <input className="form-check-input btn-dark btn-add text-center"
-        type="radio" name="flexRadioDefault" id="flexRadioDefault1"/> 
+        <div className="form-check">
+          <input className="form-check-input btn-dark btn-add text-center"
+            type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
         </div>
 
       </div>
@@ -109,12 +136,12 @@ function DrinksItem({ id }) {
       <div>
         +{drink.price} kr
 
-        <div className="form-check"> 
-        <input className="form-check-input btn-dark btn-add text-center"
-        type="radio" name="flexRadioDefault" id="flexRadioDefault1"/> 
+        <div className="form-check">
+          <input className="form-check-input btn-dark btn-add text-center"
+            type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
         </div>
 
-          {/* <button onClick={() => props.adjustAmount(props.id, -1)} disabled={props.amount === 0} className="btn btn-primary btn-sm">-</button>
+        {/* <button onClick={() => props.adjustAmount(props.id, -1)} disabled={props.amount === 0} className="btn btn-primary btn-sm">-</button>
           <div className="px-2 align-self-center">{props.amount}</div>
           <button onClick={() => props.adjustAmount(props.id, 1)} disabled={props.amount === maxNoOfProducts} className="btn btn-primary btn-sm">+</button> */}
 
@@ -138,6 +165,8 @@ function App() {
     { id: "d3", amount: 0 },
   ])
 
+  
+
   return (
     <article>
 
@@ -145,7 +174,7 @@ function App() {
       <div className="head">
 
         <div className="caprasimo"><h1>PINEAPPLE EXPRESS MEAL</h1>
-
+          {/* {totalAmount()} kr */}
           <div className="sidebar">
 
             <img className='logo' src={image} />
