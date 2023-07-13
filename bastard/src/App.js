@@ -79,7 +79,7 @@ function ProductItem({ id }) {
         <div className="col-3 d-flex justify-content-between">
           <button disabled={product.amount === 0} onClick={() => adjustProduct(-1)} type="button" className="btn btn-dark btn-add text-center">-</button>
           <div className="px-2 align-self-center">{product.amount}</div>
-          <button onClick={() => adjustProduct(1)} type="button" className="btn btn-dark btn-add text-center">+</button>
+          <button disabled={product.amount === 2} onClick={() => adjustProduct(1)} type="button" className="btn btn-dark btn-add text-center">+</button>
         </div>
       </div>
     </div>
@@ -132,7 +132,7 @@ function DrinksItem({ id }) {
 
         <div className="form-check">
           <input className="form-check-input btn-dark btn-add text-center"
-            type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+            type="radio" name="flexRadioDefault2" id="flexRadioDefault2" />
         </div>
 
         {/* <button onClick={() => props.adjustAmount(props.id, -1)} disabled={props.amount === 0} className="btn btn-primary btn-sm">-</button>
