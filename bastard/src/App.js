@@ -9,15 +9,15 @@ import jalapenos from './images/Jalapenos.png'
 import shackFries from './images/ShackFries.png'
 import sweetPotato from './images/SweetPotatoFries.png'
 import animalStyle from './images/AnimalStyleFries.png'
-import pepsi from './images/litenPepsi.png' 
-import pepsiMax from './images/PepsiMax.png' 
+import pepsi from './images/litenPepsi.png'
+import pepsiMax from './images/PepsiMax.png'
 import sevenUP from './images/7UPFree.png'
 
 
 
 
 
-import { useState} from 'react'
+import { useState } from 'react'
 
 const addProduct = new Map([
   ['p1', { name: 'Cheese', price: 15, image: cheese }],
@@ -26,8 +26,8 @@ const addProduct = new Map([
   ['p4', { name: 'Jalapeños', price: 10, image: jalapenos }]
 ])
 const sides = new Map([
-  ['s1', { name: 'Shack Fries', price: 0, image: shackFries}],
-  ['s2', { name: 'Sweet Potato Fries', price: 10, image: sweetPotato}],
+  ['s1', { name: 'Shack Fries', price: 0, image: shackFries }],
+  ['s2', { name: 'Sweet Potato Fries', price: 10, image: sweetPotato }],
   ['s3', { name: 'Animal Style Fries', price: 39, image: animalStyle }]
 ])
 const drinks = new Map([
@@ -36,7 +36,7 @@ const drinks = new Map([
   ['d3', { name: '7up Free', price: 0, image: sevenUP }]
 ]);
 
-const list =[addProduct, sides, drinks]
+const list = [addProduct, sides, drinks]
 
 
 
@@ -48,14 +48,18 @@ function ProductItem({ id }) {
   const product = getProduct(id);
 
   return (
-    <div className='d-flex justify-content-between'>
+    <div className='d-flex justify-content-between border-bottom border-secondary'>
       <div>
-        <img src={product.image}  className="product-image" />
+        <img src={product.image} className="product-image" />
         <span>{product.name}</span>
       </div>
       <div>
         +{product.price}
-        <button type="button" className="btn btn-dark btn-add justify-content-between">+</button>
+        <div className="col-3 d-flex justify-content-between">
+        <button type="button" className="btn btn-dark btn-add text-center">+</button>
+        <div className="px-2 align-self-center">antal</div>
+        <button type="button" className="btn btn-dark btn-add text-center">-</button>
+        </div>
       </div>
     </div>
   );
@@ -69,18 +73,25 @@ function SidesItem({ id }) {
   const side = getSides(id);
 
   return (
-    <div className='d-flex justify-content-between'>
+    <div className='d-flex justify-content-between border-bottom border-secondary'>
       <div>
-        <img src={side.image}  className="product-image" />
-        <span>{side.name}</span>
+        <img src={side.image} className="product-image" />
+        <span className="ps-3">{side.name}</span>
       </div>
       <div>
         +{side.price}
-        <button type="button" className="btn btn-dark btn-add justify-content-between">+</button>
+        {/* <button type="button" className="btn btn-dark btn-add justify-content-between">+</button> */}
+
+        <div className="form-check"> 
+        <input className="form-check-input btn-dark btn-add text-center"
+        type="radio" name="flexRadioDefault" id="flexRadioDefault1"/> 
+        </div>
+
       </div>
     </div>
   );
 }
+
 
 function getDrinks(id) {
   return drinks.get(id);
@@ -90,14 +101,23 @@ function DrinksItem({ id }) {
   const drink = getDrinks(id);
 
   return (
-    <div className='d-flex justify-content-between'>
+    <div className='d-flex justify-content-between border-bottom border-secondary'>
       <div>
         <img src={drink.image} className="product-image" />
-        <span>{drink.name}</span>
+        <span className="ps-3">{drink.name}</span>
       </div>
       <div>
-        +{drink.price}
-        <button type="button" className="btn btn-dark btn-add justify-content-between">+</button>
+        +{drink.price} kr
+
+        <div className="form-check"> 
+        <input className="form-check-input btn-dark btn-add text-center"
+        type="radio" name="flexRadioDefault" id="flexRadioDefault1"/> 
+        </div>
+
+          {/* <button onClick={() => props.adjustAmount(props.id, -1)} disabled={props.amount === 0} className="btn btn-primary btn-sm">-</button>
+          <div className="px-2 align-self-center">{props.amount}</div>
+          <button onClick={() => props.adjustAmount(props.id, 1)} disabled={props.amount === maxNoOfProducts} className="btn btn-primary btn-sm">+</button> */}
+
       </div>
     </div>
   );
@@ -106,10 +126,10 @@ function DrinksItem({ id }) {
 function App() {
 
   const [cart, setCart] = useState([
-    { id: "p1", amount: 0},
-    { id: "p2", amount: 0},
-    { id: "p3", amount: 0}, 
-    { id: "p4", amount: 0}, 
+    { id: "p1", amount: 0 },
+    { id: "p2", amount: 0 },
+    { id: "p3", amount: 0 },
+    { id: "p4", amount: 0 },
     { id: "s1", amount: 0 },
     { id: "s2", amount: 0 },
     { id: "s3", amount: 0 },
@@ -143,22 +163,22 @@ function App() {
           <img src={imageBurger} className="bigMenuImages" />
           <h2>Add</h2>
           {Array.from(addProduct.keys()).map((key) => (
-          <ProductItem key={key} id={key} />
-        ))}
+            <ProductItem key={key} id={key} />
+          ))}
         </div>
         <div className="col">
           <img src={imageSide} className="bigMenuImages" />
           <h2>Choose your Side</h2>
           {Array.from(sides.keys()).map((key) => (
-          <SidesItem key={key} id={key} />
-        ))}
+            <SidesItem key={key} id={key} />
+          ))}
         </div>
         <div className="col">
           <img src={imageDrink} className="bigMenuImages" />
           <h2>Choose Your Drink</h2>
           {Array.from(drinks.keys()).map((key) => (
-          <DrinksItem key={key} id={key} />
-        ))}
+            <DrinksItem key={key} id={key} />
+          ))}
 
         </div>
         {/* </div> */}
