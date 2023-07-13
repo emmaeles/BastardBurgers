@@ -24,8 +24,8 @@ function App() {
 
       </div>
 
-      <div className="container text-center justify-content-evenly menu">
-        <div class="row">
+      <div className="container text-center justify-content-evenly menu row ">
+        {/* <div class="row"> */}
           <div className="col">
             <img src={imageBurger} className="bigMenuImages" />
             <h2>Add</h2>
@@ -40,7 +40,7 @@ function App() {
             <h2>Choose Your Drink</h2>
 
           </div>
-        </div>
+        {/* </div> */}
       </div>
 
     </article>
