@@ -40,10 +40,6 @@ const list = [addProduct, sides, drinks]
 
 
 
-function getProduct(id) {
-  return addProduct.get(id);
-}
-
 function ProductItem({ id }) {
   const [products, setProducts] = useState(addProduct);
 
@@ -59,14 +55,31 @@ function ProductItem({ id }) {
     
   }
 
-  // const totalAmount = () => {
 
-  //   const price = cart.map(a => {
-  //     return a.amount * (getProduct(a.id).price)
-  //   })
+  function getProduct(id) {
+    return addProduct.get(id);
+  }
 
-  //   return price.reduce((a, b) => { return a + b })
-  // }
+
+
+
+
+
+  const totalAmount2 = () => {
+
+    return (
+        list.reduce((total, item) => {
+            const product = getProduct(item.id)
+            return total + product.price * item.amount
+        }, 0)
+       
+    )
+
+}
+
+
+
+
 
   return (
     <div className='d-flex justify-content-between border-bottom border-secondary'>
@@ -75,7 +88,7 @@ function ProductItem({ id }) {
         <span>{product.name}</span>
       </div>
       <div>
-        +{product.price}
+        +{product.price} kr
         <div className="col-3 d-flex justify-content-between">
           <button disabled={product.amount === 0} onClick={() => adjustProduct(-1)} type="button" className="btn btn-dark btn-add text-center">-</button>
           <div className="px-2 align-self-center">{product.amount}</div>
@@ -100,7 +113,7 @@ function SidesItem({ id }) {
         <span className="ps-3">{side.name}</span>
       </div>
       <div>
-        +{side.price}
+        +{side.price} kr
         {/* <button type="button" className="btn btn-dark btn-add justify-content-between">+</button> */}
 
         <div className="form-check">
@@ -158,7 +171,24 @@ function App() {
     { id: "d2", amount: 0 },
     { id: "d3", amount: 0 },
   ])
+  
+  // const [price, setPrice] = useState(175)
 
+  // const totalAmount = () => {
+  //   let price = 0;
+
+  //   list.forEach(element => {
+  //     element.forEach(product => {
+  //       price += product.amount*product.price
+  //     });
+      
+  //   });
+
+  //   setPrice(price)
+  //   console.log(price)
+
+  //   return price
+  // }
   
 
   return (
