@@ -74,3 +74,35 @@ code {}
   border: greenyellow;
 }
 
+.cart{
+  color:  greenyellow;
+}
+
+
+.plus {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  /* exercise start */
+  top: 280px;
+  left: 412px;
+  font-size: 90px;
+  font-weight: light;
+  color: white;
+  display: flex;
+  /* exercise end */
+}
+
+.plus2 {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  /* exercise start */
+  top: 280px;
+  left: 846px;
+  font-size: 90px;
+  color: white;
+  display: flex;
+  /* exercise end */
+}
+
