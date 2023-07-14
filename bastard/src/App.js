@@ -1,7 +1,11 @@
 import image from './images/Bastardburgers.jpg'
 import imageBurger from './images/burger.jpg'
-import imageSide from './images/Pommes.png'
-import imageDrink from './images/pepsi.png'
+import imageSide1 from './images/Pommes.png'
+import imageSide2 from './images/LargeSweetFries.png'
+import imageSide3 from './images/LargeAnimalFries.png'
+import drink1 from './images/pepsi.png'
+import drink2 from './images/LargePepsi.png'
+import drink3 from './images/Large7Up.png'
 import cheese from './images/cheese.png'
 import meatPatty from './images/meat patty.png'
 import bacon from './images/bacon.png'
@@ -168,6 +172,39 @@ function App() {
     { id: "d3", amount: 0 },
   ])
 
+  let imageSide = imageSide1
+
+  const pickImageSide = () => {
+    if (cartSides[0].amount === 1){
+      imageSide = imageSide1
+    }
+    if (cartSides[1].amount === 1){
+      imageSide = imageSide2
+    }
+    if (cartSides[2].amount === 1){
+      imageSide = imageSide3
+    }
+
+    return(imageSide)
+  }
+
+
+  let imageDrink = drink1
+
+  const pickImageDrink = () => {
+    if (cartDrinks[0].amount === 1){
+      imageDrink = drink1
+    }
+    if (cartDrinks[1].amount === 1){
+      imageDrink = drink2
+    }
+    if (cartDrinks[2].amount === 1){
+      imageDrink = drink3
+    }
+
+    return(imageDrink)
+  }
+
 
   const adjustProduct = (id, change) => {
 
@@ -236,11 +273,12 @@ function App() {
 
       <div className="head">
 
-        <div className="caprasimo"><h1>PINEAPPLE EXPRESS MEAL</h1>
-          <div>{totalAmount()} kr</div>
+        <div className="caprasimo">
+          <h1>PINEAPPLE EXPRESS MEAL</h1>
           <div className="sidebar">
 
             <img className='logo' src={image} />
+            <h1 className="cart">&nbsp;{totalAmount()} kr</h1>
 
           </div>
 
@@ -252,17 +290,19 @@ function App() {
       <div className="container text-center justify-content-evenly menu row ">
         <div className="col">
           <img src={imageBurger} className="bigMenuImages" />
-          <h2>Add</h2>
+          <p className="plus">+</p>
+          <p className="plus2">+</p>
+          <h2 className="caprasimo text-start pt-3">Add</h2>
           {cartProducts.map(i => <ProductItem adjustProduct={adjustProduct} key={i.id} id={i.id} amount={i.amount} />)}
         </div>
         <div className="col">
-          <img src={imageSide} className="bigMenuImages" />
-          <h2>Choose your Side</h2>
+          <img src={pickImageSide()} className="bigMenuImages" />
+          <h2 className="caprasimo text-start pt-3">Choose your Side</h2>
           {cartSides.map(i => <SidesItem adjustProduct={adjustProduct} key={i.id} id={i.id} amount={i.amount} />)}
         </div>
         <div className="col">
-          <img src={imageDrink} className="bigMenuImages" />
-          <h2>Choose Your Drink</h2>
+          <img src={pickImageDrink()} className="bigMenuImages" />
+          <h2 className="caprasimo text-start pt-3">Choose Your Drink</h2>
           {cartDrinks.map(i => <DrinksItem adjustProduct={adjustProduct} key={i.id} id={i.id} amount={i.amount} />)}
         </div>
       </div>
