@@ -273,7 +273,9 @@ function App() {
           <div className="sidebar">
 
             <img className='logo' src={image} />
-            <h1 className="cart">&nbsp;{totalAmount()} kr</h1>
+            <h2 className='text-center'>Varukorg</h2>
+            <h4 className='text-start'>1x Pineapple Express Meal</h4>
+            <h1 className="cart">Totalt:&nbsp;{totalAmount()} kr</h1>
 
           </div>
 
