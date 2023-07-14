@@ -17,66 +17,34 @@ import sevenUP from './images/7UPFree.png'
 
 
 
-
 import { useState } from 'react'
 
 const addProduct = new Map([
-  ['p1', { name: 'Cheese', price: 15, image: cheese, amount: 0 }],
-  ['p2', { name: 'Meat Patty', price: 45, image: meatPatty, amount: 0 }],
-  ['p3', { name: 'Bacon', price: 20, image: bacon, amount: 0  }],
-  ['p4', { name: 'Jalapeños', price: 10, image: jalapenos, amount: 0  }]
+  ['p1', { name: 'Cheese', price: 15, image: cheese }],
+  ['p2', { name: 'Meat Patty', price: 45, image: meatPatty }],
+  ['p3', { name: 'Bacon', price: 20, image: bacon }],
+  ['p4', { name: 'Jalapeños', price: 10, image: jalapenos }]
 ])
 const sides = new Map([
-  ['s1', { name: 'Shack Fries', price: 0, image: shackFries, amount: 0  }],
-  ['s2', { name: 'Sweet Potato Fries', price: 10, image: sweetPotato, amount: 0  }],
-  ['s3', { name: 'Animal Style Fries', price: 39, image: animalStyle, amount: 0  }]
+  ['s1', { name: 'Shack Fries', price: 0, image: shackFries }],
+  ['s2', { name: 'Sweet Potato Fries', price: 10, image: sweetPotato }],
+  ['s3', { name: 'Animal Style Fries', price: 39, image: animalStyle }]
 ])
 const drinks = new Map([
-  ['d1', { name: 'Pepsi', price: 0, image: pepsi, amount: 0  }],
-  ['d2', { name: 'Pepsi Max', price: 0, image: pepsiMax, amount: 0  }],
-  ['d3', { name: '7up Free', price: 0, image: sevenUP, amount: 0  }]
+  ['d1', { name: 'Pepsi', price: 0, image: pepsi }],
+  ['d2', { name: 'Pepsi Max', price: 0, image: pepsiMax }],
+  ['d3', { name: '7up Free', price: 0, image: sevenUP }]
 ]);
 
-const list = [addProduct, sides, drinks]
 
-
-
-function ProductItem({ id }) {
-  const [products, setProducts] = useState(addProduct);
-
-  const product = getProduct(id);
-
-  const adjustProduct = (change) => {
-    product.amount += change
-    const updatedProduct = { ...product, amount: product.amount + change };
-    const updatedProducts = new Map(products);
-    updatedProducts.set(id, updatedProduct);
-    setProducts(updatedProducts);
-    console.log(product.name, product.amount)
-    
-  }
-
-
-  function getProduct(id) {
-    return addProduct.get(id);
-  }
-
-
-
-
-
-
-  const totalAmount2 = () => {
-
-    return (
-        list.reduce((total, item) => {
-            const product = getProduct(item.id)
-            return total + product.price * item.amount
-        }, 0)
-       
-    )
-
+function getProduct(id) {
+  return addProduct.get(id);
 }
+
+function ProductItem(props) {
+
+  const product = getProduct(props.id);
+
 
   return (
     <div className='d-flex justify-content-between border-bottom border-secondary'>
@@ -87,9 +55,9 @@ function ProductItem({ id }) {
       <div>
         +{product.price} kr
         <div className="col-3 d-flex justify-content-between">
-          <button disabled={product.amount === 0} onClick={() => adjustProduct(-1)} type="button" className="btn btn-dark btn-add text-center">-</button>
-          <div className="px-2 align-self-center">{product.amount}</div>
-          <button disabled={product.amount === 2} onClick={() => adjustProduct(1)} type="button" className="btn btn-dark btn-add text-center">+</button>
+          <button disabled={props.amount === 0} onClick={() => props.adjustProduct(props.id, -1)} type="button" className="btn btn-dark btn-add text-center">-</button>
+          <div className="px-2 align-self-center">{props.amount}</div>
+          <button disabled={props.amount === 2} onClick={() => props.adjustProduct(props.id, 1)} type="button" className="btn btn-dark btn-add text-center">+</button>
         </div>
       </div>
     </div>
@@ -100,9 +68,26 @@ function getSides(id) {
   return sides.get(id);
 }
 
-function SidesItem({ id }) {
-  const side = getSides(id);
+function SidesItem(props) {
+  const side = getSides(props.id);
 
+
+  const [isChecked, setIsChecked] = useState(false);
+  const [previousChecked, setPreviousChecked] = useState(false);
+
+  const handleRadioChange = () => {
+    if (previousChecked) {
+      console.log(props.id);
+      props.adjustProduct(props.id, -1);
+      setIsChecked(!isChecked);
+    }
+    if (!previousChecked) {
+      console.log(props.id);
+      props.adjustProduct(props.id, 1);
+      setPreviousChecked(isChecked);
+    }
+  }
+  
   return (
     <div className='d-flex justify-content-between border-bottom border-secondary'>
       <div>
@@ -111,10 +96,9 @@ function SidesItem({ id }) {
       </div>
       <div>
         +{side.price} kr
-        {/* <button type="button" className="btn btn-dark btn-add justify-content-between">+</button> */}
 
         <div className="form-check">
-          <input className="form-check-input btn-dark btn-add text-center"
+          <input onChange={handleRadioChange} className="form-check-input btn-dark btn-add text-center"
             type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
         </div>
 
@@ -128,8 +112,24 @@ function getDrinks(id) {
   return drinks.get(id);
 }
 
-function DrinksItem({ id }) {
-  const drink = getDrinks(id);
+function DrinksItem(props) {
+  const drink = getDrinks(props.id);
+
+  const [isChecked, setIsChecked] = useState(false);
+  const [previousChecked, setPreviousChecked] = useState(false);
+
+  const handleRadioChange = () => {
+    if (previousChecked) {
+      console.log(props.id);
+      props.adjustProduct(props.id, -1);
+      setIsChecked(!isChecked);
+    }
+    if (!previousChecked) {
+      console.log(props.id);
+      props.adjustProduct(props.id, 1);
+      setPreviousChecked(isChecked);
+    }
+  }
 
   return (
     <div className='d-flex justify-content-between border-bottom border-secondary'>
@@ -141,14 +141,9 @@ function DrinksItem({ id }) {
         +{drink.price} kr
 
         <div className="form-check">
-          <input className="form-check-input btn-dark btn-add text-center"
+          <input onChange={handleRadioChange} className="form-check-input btn-dark btn-add text-center"
             type="radio" name="flexRadioDefault2" id="flexRadioDefault2" />
         </div>
-
-        {/* <button onClick={() => props.adjustAmount(props.id, -1)} disabled={props.amount === 0} className="btn btn-primary btn-sm">-</button>
-          <div className="px-2 align-self-center">{props.amount}</div>
-          <button onClick={() => props.adjustAmount(props.id, 1)} disabled={props.amount === maxNoOfProducts} className="btn btn-primary btn-sm">+</button> */}
-
       </div>
     </div>
   );
@@ -156,50 +151,96 @@ function DrinksItem({ id }) {
 
 function App() {
 
-  const [cart, setCart] = useState([
+  const [cartProducts, setCartProducts] = useState([
     { id: "p1", amount: 0 },
     { id: "p2", amount: 0 },
     { id: "p3", amount: 0 },
-    { id: "p4", amount: 0 },
+    { id: "p4", amount: 0 }
+  ])
+  const [cartSides, setCartSides] = useState([
     { id: "s1", amount: 0 },
     { id: "s2", amount: 0 },
     { id: "s3", amount: 0 },
+  ])
+  const [cartDrinks, setCartDrinks] = useState([
     { id: "d1", amount: 0 },
     { id: "d2", amount: 0 },
     { id: "d3", amount: 0 },
   ])
+
+
+  const adjustProduct = (id, change) => {
+
+    const newState = cartProducts.map(obj => {
+      if (obj.id === id) {
+        return { ...obj, amount: obj.amount + change }
+      }
+      return obj
+    })
+    console.log(newState)
+
+    setCartProducts(newState)
+
+    if(id === "s1" || id === "s2" || id === "s3"){
+      const newState2 = cartSides.map(obj => {
+        if (obj.id === id) {
+          return { ...obj, amount: obj.amount + change }
+        }
+        if (obj.id !== id && obj.amount > 0) {
+          return { ...obj, amount: obj.amount - change }
+        }
+        return obj
+      })
+      console.log(newState2)
   
-  // const [price, setPrice] = useState(175)
+      setCartSides(newState2)
 
-  // const totalAmount = () => {
-  //   let price = 0;
-
-  //   list.forEach(element => {
-  //     element.forEach(product => {
-  //       price += product.amount*product.price
-  //     });
-      
-  //   });
-
-  //   setPrice(price)
-  //   console.log(price)
-
-  //   return price
-  // }
+    }
+    if(id === "d1" || id === "d2" || id === "d3"){
+      const newState3 = cartDrinks.map(obj => {
+        if (obj.id === id) {
+          return { ...obj, amount: obj.amount + change }
+        }
+        if (obj.id !== id && obj.amount > 0) {
+          return { ...obj, amount: obj.amount - change }
+        }
+        return obj
+      })
+      console.log(newState3)
   
+      setCartDrinks(newState3)
+    }
+
+  }
+
+  const totalAmount = () => {
+
+    const priceTotal = 175
+
+    const priceExtra = cartProducts.map(a => {
+      return a.amount * (getProduct(a.id).price)
+    }).reduce((a, b) => { return a + b })
+
+    const priceExtraSides = cartSides.map(a => {
+      return a.amount * (getSides(a.id).price)
+    }).reduce((a, b) => { return a + b })
+
+
+    return priceTotal + priceExtra + priceExtraSides
+  }
+
 
   return (
     <article>
 
-      
+
       <div className="head">
 
         <div className="caprasimo"><h1>PINEAPPLE EXPRESS MEAL</h1>
-          {/* {totalAmount()} kr */}
+          <div>{totalAmount()} kr</div>
           <div className="sidebar">
 
             <img className='logo' src={image} />
-            <p className='fontSide'>Välj kategori och produkter du vill beställa.</p>
 
           </div>
 
@@ -209,30 +250,21 @@ function App() {
       </div>
 
       <div className="container text-center justify-content-evenly menu row ">
-        {/* <div class="row"> */}
         <div className="col">
           <img src={imageBurger} className="bigMenuImages" />
           <h2>Add</h2>
-          {Array.from(addProduct.keys()).map((key) => (
-            <ProductItem key={key} id={key} />
-          ))}
+          {cartProducts.map(i => <ProductItem adjustProduct={adjustProduct} key={i.id} id={i.id} amount={i.amount} />)}
         </div>
         <div className="col">
           <img src={imageSide} className="bigMenuImages" />
           <h2>Choose your Side</h2>
-          {Array.from(sides.keys()).map((key) => (
-            <SidesItem key={key} id={key} />
-          ))}
+          {cartSides.map(i => <SidesItem adjustProduct={adjustProduct} key={i.id} id={i.id} amount={i.amount} />)}
         </div>
         <div className="col">
           <img src={imageDrink} className="bigMenuImages" />
           <h2>Choose Your Drink</h2>
-          {Array.from(drinks.keys()).map((key) => (
-            <DrinksItem key={key} id={key} />
-          ))}
-
+          {cartDrinks.map(i => <DrinksItem adjustProduct={adjustProduct} key={i.id} id={i.id} amount={i.amount} />)}
         </div>
-        {/* </div> */}
       </div>
 
     </article>
