@@ -75,18 +75,12 @@ function getSides(id) {
 function SidesItem(props) {
   const side = getSides(props.id);
 
-
-  const [isChecked, setIsChecked] = useState(false);
-  const [previousChecked, setPreviousChecked] = useState(false);
-
-  const handleRadioChange = () => {
-    if (previousChecked) {
+  const handleRadioChange = (e) => {
+    if (!e.target.checked) {
       props.adjustProduct(props.id, -1);
-      setIsChecked(!isChecked);
     }
-    if (!previousChecked) {
+    if (e.target.checked) {
       props.adjustProduct(props.id, 1);
-      setPreviousChecked(isChecked);
     }
   }
   
@@ -100,7 +94,7 @@ function SidesItem(props) {
         +{side.price} kr
 
         <div className="form-check">
-          <input onChange={handleRadioChange} className="form-check-input btn-dark btn-add text-center"
+          <input onChange={(e) => handleRadioChange(e)} className="form-check-input btn-dark btn-add text-center"
             type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
         </div>
 
@@ -117,19 +111,12 @@ function getDrinks(id) {
 function DrinksItem(props) {
   const drink = getDrinks(props.id);
 
-  const [isChecked, setIsChecked] = useState(false);
-  const [previousChecked, setPreviousChecked] = useState(false);
-
-  const handleRadioChange = () => {
-    if (previousChecked) {
-      console.log(props.id);
+  const handleRadioChange = (e) => {
+    if (!e.target.checked) {
       props.adjustProduct(props.id, -1);
-      setIsChecked(!isChecked);
     }
-    if (!previousChecked) {
-      console.log(props.id);
+    if (e.target.checked) {
       props.adjustProduct(props.id, 1);
-      setPreviousChecked(isChecked);
     }
   }
 
@@ -143,7 +130,7 @@ function DrinksItem(props) {
         +{drink.price} kr
 
         <div className="form-check">
-          <input onChange={handleRadioChange} className="form-check-input btn-dark btn-add text-center"
+          <input onChange={(e) => handleRadioChange(e)} className="form-check-input btn-dark btn-add text-center"
             type="radio" name="flexRadioDefault2" id="flexRadioDefault2" />
         </div>
       </div>
@@ -275,7 +262,7 @@ function App() {
             <img className='logo' src={image} />
             <h2 className='text-center'>Varukorg</h2>
             <h4 className='text-start'>1x Pineapple Express Meal</h4>
-            <h1 className="cart">Totalt:&nbsp;{totalAmount()} kr</h1>
+            <h1 className="cart">&nbsp;{totalAmount()} kr</h1>
 
           </div>
 
