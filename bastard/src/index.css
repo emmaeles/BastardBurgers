@@ -44,8 +44,12 @@ code {}
 
 .logo {
   margin-top: 25px;
-  width: 230px;
+  width: 300px;
   height: 130px;
+  
+}
+.fontSide{
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .bigMenuImages {

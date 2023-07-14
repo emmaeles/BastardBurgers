@@ -17,6 +17,7 @@ import sevenUP from './images/7UPFree.png'
 
 
 
+
 import { useState } from 'react'
 
 const addProduct = new Map([
@@ -76,10 +77,6 @@ function ProductItem({ id }) {
     )
 
 }
-
-
-
-
 
   return (
     <div className='d-flex justify-content-between border-bottom border-secondary'>
@@ -194,7 +191,7 @@ function App() {
   return (
     <article>
 
-
+      
       <div className="head">
 
         <div className="caprasimo"><h1>PINEAPPLE EXPRESS MEAL</h1>
@@ -202,6 +199,7 @@ function App() {
           <div className="sidebar">
 
             <img className='logo' src={image} />
+            <p className='fontSide'>Välj kategori och produkter du vill beställa.</p>
 
           </div>
 
