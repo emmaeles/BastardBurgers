@@ -77,12 +77,10 @@ function SidesItem(props) {
 
   const handleRadioChange = () => {
     if (previousChecked) {
-      console.log(props.id);
       props.adjustProduct(props.id, -1);
       setIsChecked(!isChecked);
     }
     if (!previousChecked) {
-      console.log(props.id);
       props.adjustProduct(props.id, 1);
       setPreviousChecked(isChecked);
     }
@@ -177,7 +175,6 @@ function App() {
       }
       return obj
     })
-    console.log(newState)
 
     setCartProducts(newState)
 
@@ -191,7 +188,6 @@ function App() {
         }
         return obj
       })
-      console.log(newState2)
   
       setCartSides(newState2)
 
@@ -206,7 +202,6 @@ function App() {
         }
         return obj
       })
-      console.log(newState3)
   
       setCartDrinks(newState3)
     }
